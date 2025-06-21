@@ -35,3 +35,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- DROP DATABASE tarefas;
+
+-- INSERT INTO `tarefas`.`table1` (id, nomeTarefa, descricaoTarefa, statusTarefa, dataTarefa, tempoParaFazerTarefa, opniãoTarefaRealizada) VALUES (1,'TAREFATESTE');
