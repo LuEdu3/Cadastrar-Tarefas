@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Tarefas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">        <div class="retangulo-form">
+            <!-- Conteúdo do formulário de tarefas aqui -->
+            <h2>Cadastrar Tarefa</h2>
+            <form id="tarefaForm">
+                <label for="nomeTarefa">Nome:</label>
+                <input type="text" id="nomeTarefa" name="nomeTarefa" required>
+                <label for="descricaoTarefa">Descrição:</label>
+                <textarea id="descricaoTarefa" name="descricaoTarefa"></textarea>
+                <label for="statusTarefa">Status:</label>
+                <select id="statusTarefa" name="statusTarefa">
+                    <option value="Concluido">Concluído</option>
+                    <option value="Em Andamento">Em Andamento</option>
+                </select>
+                <label for="dataTarefa">Data:</label>
+                <input type="datetime-local" id="dataTarefa" name="dataTarefa" required>
+                <label for="tempoParaFazerTarefa">Tempo para fazer:</label>
+                <input type="text" id="tempoParaFazerTarefa" name="tempoParaFazerTarefa">
+                <label for="opniaoTarefaRealizada">Opinião:</label>
+                <textarea id="opniaoTarefaRealizada" name="opniaoTarefaRealizada"></textarea>
+                <button type="submit">Cadastrar</button>
+            </form>
+            
+            <div class="log-interno">
+                <h3>Log</h3>
+                <div id="log"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

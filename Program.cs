@@ -23,6 +23,4 @@ app.UseStaticFiles();
 // Mapeia endpoints de controllers
 app.MapControllers();
 
-app.MapGet("/", () => "Hello World!");
-
 app.Run();
