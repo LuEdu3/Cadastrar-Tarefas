@@ -8,36 +8,42 @@ body, html {
 
 .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100vh;
     justify-content: center;
     align-items: center;
     padding: 3vh 2vw;
+    gap: 2vw;
 }
 
-.retangulo-form {
+.retangulo-form, .retangulo-tarefas {
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    width: 50vw;
+    width: 45vw;
     min-width: 320px;
     max-width: 600px;
-    min-height: 80vh;
+    height: 80vh;
     padding: 32px 24px 24px 24px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-y: auto;
 }
 
-.retangulo-form h2 {
+.retangulo-form h2, .retangulo-tarefas h2 {
     margin-top: 0;
     margin-bottom: 16px;
     color: #333;
+    font-family: 'Inter', sans-serif;
 }
 
 .retangulo-form label {
-    margin-top: 10px;
-    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+    font-family: 'Inter', sans-serif;
 }
 
 .retangulo-form input,
@@ -51,6 +57,7 @@ body, html {
     border-radius: 4px;
     font-size: 1rem;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 .retangulo-form button {
@@ -63,7 +70,9 @@ body, html {
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
 }
+
 .retangulo-form button:hover {
     background: #125ea8;
 }
@@ -79,14 +88,98 @@ body, html {
 }
 
 .log-interno h3 {
-    margin: 0 0 10px 0;
-    font-size: 1rem;
-    color: #555;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
 }
 
-#log {
-    font-size: 0.9rem;
+.log-interno #log {
+    font-size: 0.8rem;
+    color: #555;
+    font-family: 'Inter', monospace;
+}
+
+/* Estilos para o retângulo de tarefas */
+#listaTarefas {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tarefa-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.tarefa-item:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tarefa-nome {
+    font-weight: 600;
     color: #333;
-    white-space: pre-line;
-    min-height: 60px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.tarefa-descricao {
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.tarefa-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tarefa-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-concluido {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-andamento {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.tarefa-data {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.tarefa-tempo {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 2vh 2vw;
+        gap: 2vh;
+    }
+    
+    .retangulo-form, .retangulo-tarefas {
+        width: 90vw;
+        height: 45vh;
+    }
 }
