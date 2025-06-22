@@ -183,3 +183,32 @@ body, html {
         height: 45vh;
     }
 }
+
+/* Estilos para os botões de ação das tarefas */
+.tarefa-acoes {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-concluir {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-concluir:hover {
+    background: #218838;
+}
+
+.tarefa-concluida {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
