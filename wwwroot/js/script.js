@@ -4,33 +4,83 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
+        
+        const formData = new FormData(this);
         const tarefa = {
-            nomeTarefa: form.nomeTarefa.value,
-            descricaoTarefa: form.descricaoTarefa.value,
-            statusTarefa: form.statusTarefa.value,
-            dataTarefa: form.dataTarefa.value,
-            tempoParaFazerTarefa: form.tempoParaFazerTarefa.value,
-            opniaoTarefaRealizada: form.opniaoTarefaRealizada.value
+            nomeTarefa: formData.get('nomeTarefa'),
+            descricaoTarefa: formData.get('descricaoTarefa'),
+            statusTarefa: formData.get('statusTarefa'),
+            dataTarefa: formData.get('dataTarefa'),
+            tempoParaFazerTarefa: formData.get('tempoParaFazerTarefa'),
+            opniaoTarefaRealizada: formData.get('opniaoTarefaRealizada')
         };
 
         try {
             const response = await fetch('/api/tarefas', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(tarefa)
             });
+
+            const log = document.getElementById('log');
+            
             if (response.ok) {
-                const data = await response.json();
-                logDiv.textContent = `Tarefa cadastrada com sucesso! ID: ${data.id}\n` + logDiv.textContent;
-                form.reset();
+                const novaTarefa = await response.json();
+                log.innerHTML += `<div style="color: green;">✓ Tarefa "${tarefa.nomeTarefa}" cadastrada com sucesso!</div>`;
+                this.reset();
+                carregarTarefas(); // Recarrega a lista de tarefas
             } else {
-                const error = await response.text();
-                logDiv.textContent = `Erro ao cadastrar tarefa: ${error}\n` + logDiv.textContent;
+                log.innerHTML += `<div style="color: red;">✗ Erro ao cadastrar tarefa: ${response.status}</div>`;
             }
-        } catch (err) {
-            logDiv.textContent = `Erro de conexão: ${err}\n` + logDiv.textContent;
+        } catch (error) {
+            const log = document.getElementById('log');
+            log.innerHTML += `<div style="color: red;">✗ Erro de conexão: ${error.message}</div>`;
         }
     });
+
+    // Função para carregar e exibir todas as tarefas
+    async function carregarTarefas() {
+        try {
+            const response = await fetch('/api/tarefas');
+            
+            if (response.ok) {
+                const tarefas = await response.json();
+                exibirTarefas(tarefas);
+            } else {
+                console.error('Erro ao carregar tarefas:', response.status);
+            }
+        } catch (error) {
+            console.error('Erro de conexão ao carregar tarefas:', error);
+        }
+    }
+
+    // Função para exibir as tarefas na tela
+    function exibirTarefas(tarefas) {
+        const listaTarefas = document.getElementById('listaTarefas');
+        
+        if (tarefas.length === 0) {
+            listaTarefas.innerHTML = '<div style="text-align: center; color: #666; margin-top: 20px;">Nenhuma tarefa cadastrada</div>';
+            return;
+        }
+        
+        listaTarefas.innerHTML = tarefas.map(tarefa => `
+            <div class="tarefa-item">
+                <div class="tarefa-nome">${tarefa.nomeTarefa}</div>
+                <div class="tarefa-descricao">${tarefa.descricaoTarefa || 'Sem descrição'}</div>
+                <div class="tarefa-info">
+                    <span class="tarefa-status ${tarefa.statusTarefa === 'Concluido' ? 'status-concluido' : 'status-andamento'}">
+                        ${tarefa.statusTarefa}
+                    </span>
+                    <span class="tarefa-data">${new Date(tarefa.dataTarefa).toLocaleString('pt-BR')}</span>
+                </div>
+                ${tarefa.tempoParaFazerTarefa ? `<div class="tarefa-tempo">Tempo: ${tarefa.tempoParaFazerTarefa}</div>` : ''}
+                ${tarefa.opniaoTarefaRealizada ? `<div class="tarefa-opiniao" style="margin-top: 8px; font-style: italic; color: #666;">Opinião: ${tarefa.opniaoTarefaRealizada}</div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    // Carrega as tarefas quando a página é carregada
+    document.addEventListener('DOMContentLoaded', carregarTarefas);
 });
