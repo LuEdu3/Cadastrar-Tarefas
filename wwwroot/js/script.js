@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `).join('');
     }    // Carrega as tarefas quando a página é carregada
-    document.addEventListener('DOMContentLoaded', carregarTarefas);
+    carregarTarefas();
 });
 
 // Função para marcar tarefa como concluída
