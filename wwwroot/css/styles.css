@@ -1,0 +1,92 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f7f7f7;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh 2vw;
+}
+
+.retangulo-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    width: 50vw;
+    min-width: 320px;
+    max-width: 600px;
+    min-height: 80vh;
+    padding: 32px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.retangulo-form h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.retangulo-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.retangulo-form input,
+.retangulo-form textarea,
+.retangulo-form select {
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.retangulo-form button {
+    margin-top: 10px;
+    padding: 10px 0;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.retangulo-form button:hover {
+    background: #125ea8;
+}
+
+.log-interno {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.log-interno h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+#log {
+    font-size: 0.9rem;
+    color: #333;
+    white-space: pre-line;
+    min-height: 60px;
+}
