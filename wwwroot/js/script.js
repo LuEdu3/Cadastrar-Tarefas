@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
             listaTarefas.innerHTML = '<div style="text-align: center; color: #666; margin-top: 20px;">Nenhuma tarefa cadastrada</div>';
             return;
         }
-          listaTarefas.innerHTML = tarefas.map(tarefa => `
+        // Exibir as tarefas mais novas primeiro
+        listaTarefas.innerHTML = tarefas.reverse().map(tarefa => `
             <div class="tarefa-item">
                 <div class="tarefa-nome">${tarefa.nomeTarefa}</div>
                 <div class="tarefa-descricao">${tarefa.descricaoTarefa || 'Sem descrição'}</div>
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <span class="tarefa-data">${new Date(tarefa.dataTarefa).toLocaleString('pt-BR')}</span>
                 </div>
                 ${tarefa.tempoParaFazerTarefa ? `<div class="tarefa-tempo">Tempo: ${tarefa.tempoParaFazerTarefa}</div>` : ''}
-                ${tarefa.opniaoTarefaRealizada ? `<div class="tarefa-opiniao" style="margin-top: 8px; font-style: italic; color: #666;">Opinião: ${tarefa.opniaoTarefaRealizada}</div>` : ''}
+                ${tarefa.opniaoTarefaRealizada ? `<div class="tarefa-opiniao" style="margin-top: 8px; font-style: italic;">Opinião: ${tarefa.opniaoTarefaRealizada}</div>` : ''}
                 <div class="tarefa-acoes">
                     ${tarefa.statusTarefa === 'Em Andamento' ? 
                         `<button class="btn-concluir" onclick="marcarComoConcluida(${tarefa.id})">✓ Marcar como Concluída</button>` : 
