@@ -1,9 +1,33 @@
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f7f7f7;
+    /* Gradiente azul escuro ainda mais profundo */
+    background: radial-gradient(ellipse at 60% 40%, #22335a 0%, #101a3a 60%, #05081a 100%);
+    /* Efeito de "diamante" com overlay de brilho */
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    /* Brilhos em azul ainda mais escuro, simulando "diamantes" */
+    background:
+        radial-gradient(circle at 20% 30%, rgba(120, 150, 255, 0.08) 0%, rgba(0, 0, 0, 0) 60%),
+        radial-gradient(circle at 80% 70%, rgba(60, 90, 180, 0.10) 0%, rgba(0, 0, 0, 0) 60%),
+        radial-gradient(circle at 60% 20%, rgba(0, 60, 120, 0.08) 0%, rgba(0, 0, 0, 0) 60%),
+        radial-gradient(circle at 40% 80%, rgba(30, 60, 120, 0.08) 0%, rgba(0, 0, 0, 0) 60%);
+    opacity: 0.6;
+    filter: blur(2.5px);
 }
 
 .container {
@@ -16,10 +40,11 @@ body, html {
     gap: 2vw;
 }
 
-.retangulo-form, .retangulo-tarefas {
+.retangulo-form,
+.retangulo-tarefas {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     width: 45vw;
     min-width: 320px;
     max-width: 600px;
@@ -31,7 +56,8 @@ body, html {
     overflow-y: auto;
 }
 
-.retangulo-form h2, .retangulo-tarefas h2 {
+.retangulo-form h2,
+.retangulo-tarefas h2 {
     margin-top: 0;
     margin-bottom: 16px;
     color: #333;
@@ -117,7 +143,7 @@ body, html {
 }
 
 .tarefa-item:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tarefa-nome {
@@ -177,8 +203,9 @@ body, html {
         padding: 2vh 2vw;
         gap: 2vh;
     }
-    
-    .retangulo-form, .retangulo-tarefas {
+
+    .retangulo-form,
+    .retangulo-tarefas {
         width: 90vw;
         height: 45vh;
     }
