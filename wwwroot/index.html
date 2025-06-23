@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
+    <div id="sideMenu" class="side-menu">
+        <button id="closeMenuBtn" class="close-menu">&times;</button>
+        <h3>Configurações</h3>
+        <div class="config-item">
+            <label class="switch">
+                <input type="checkbox" id="toggleDarkMode">
+                <span class="slider"></span>
+            </label>
+            <span>Modo Noturno</span>
+        </div>
+    </div>
+    <button id="openMenuBtn" class="open-menu">&#9776;</button>
     <div class="container">
         <div class="retangulo-form">
             <h2>Cadastrar Tarefa</h2>
@@ -31,7 +45,7 @@
                 <textarea id="opniaoTarefaRealizada" name="opniaoTarefaRealizada"></textarea>
                 <button type="submit">Cadastrar</button>
             </form>
-            
+
             <div class="log-interno">
                 <h3>Log</h3>
                 <div id="log"></div>
@@ -46,5 +60,43 @@
         </div>
     </div>
     <script src="js/script.js"></script>
+    <script>
+        // Menu lateral
+        const sideMenu = document.getElementById('sideMenu');
+        const openMenuBtn = document.getElementById('openMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        openMenuBtn.onclick = () => {
+            sideMenu.classList.add('open');
+            openMenuBtn.classList.add('hide');
+            setTimeout(() => {
+                document.addEventListener('mousedown', handleClickOutside);
+            }, 0);
+        };
+        closeMenuBtn.onclick = () => {
+            sideMenu.classList.remove('open');
+            openMenuBtn.classList.remove('hide');
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+
+        function handleClickOutside(event) {
+            if (!sideMenu.contains(event.target) && !openMenuBtn.contains(event.target)) {
+                sideMenu.classList.remove('open');
+                openMenuBtn.classList.remove('hide');
+                document.removeEventListener('mousedown', handleClickOutside);
+            }
+        }
+        // Modo noturno
+        const toggleDarkMode = document.getElementById('toggleDarkMode');
+        // Carregar preferência ao iniciar
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            toggleDarkMode.checked = true;
+        }
+        toggleDarkMode.addEventListener('change', function () {
+            document.body.classList.toggle('dark-mode', this.checked);
+            localStorage.setItem('darkMode', this.checked);
+        });
+    </script>
 </body>
+
 </html>

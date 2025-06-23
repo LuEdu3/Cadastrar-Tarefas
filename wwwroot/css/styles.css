@@ -239,3 +239,193 @@ body::before {
     font-weight: 600;
     font-size: 0.9rem;
 }
+
+/***** MENU LATERAL *****/
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: #181f2f;
+    color: #fff;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.18);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+    z-index: 1001;
+    padding: 32px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.side-menu.open {
+    transform: translateX(0);
+}
+
+.open-menu {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 1100;
+    background: #181f2f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 2rem;
+    padding: 6px 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: background 0.2s;
+}
+
+.open-menu:hover {
+    background: #232b45;
+}
+
+.open-menu.hide {
+    display: none !important;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    cursor: pointer;
+}
+
+.config-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/***** SWITCH (toggle) *****/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #555;
+    border-radius: 24px;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.switch input:checked+.slider {
+    background: #1976d2;
+}
+
+.switch input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+/***** MODO NOTURNO *****/
+body.dark-mode,
+body.dark-mode html {
+    background: radial-gradient(ellipse at 60% 40%, #10131e 0%, #070a13 60%, #01020a 100%) !important;
+}
+
+body.dark-mode .retangulo-form,
+body.dark-mode .retangulo-tarefas {
+    background: #181f2f;
+    color: #e0e6f0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.22);
+}
+
+body.dark-mode h2,
+body.dark-mode label,
+body.dark-mode .tarefa-nome {
+    color: #e0e6f0;
+}
+
+body.dark-mode .retangulo-form input,
+body.dark-mode .retangulo-form textarea,
+body.dark-mode .retangulo-form select {
+    background: #232b45;
+    color: #e0e6f0;
+    border: 1px solid #2c3550;
+}
+
+body.dark-mode .retangulo-form button {
+    background: #232b45;
+    color: #fff;
+}
+
+body.dark-mode .retangulo-form button:hover {
+    background: #1976d2;
+}
+
+body.dark-mode .tarefa-item {
+    background: #232b45;
+    border: 1px solid #2c3550;
+    color: #e0e6f0;
+}
+
+body.dark-mode .log-interno {
+    background: #232b45;
+    border: 1px solid #2c3550;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-concluir {
+    background: #1976d2;
+}
+
+body.dark-mode .btn-concluir:hover {
+    background: #125ea8;
+}
+
+body.dark-mode .tarefa-nome,
+body.dark-mode .tarefa-descricao,
+body.dark-mode .tarefa-info,
+body.dark-mode .tarefa-status,
+body.dark-mode .tarefa-data,
+body.dark-mode .tarefa-tempo {
+    color: #e0e6f0 !important;
+}
+
+body.dark-mode .tarefa-opiniao {
+    color: #b0c4ff !important;
+    /*b0c4ff cor para deixar azul*/
+}
+
+body.dark-mode .tarefa-concluida {
+    color: #baffc9 !important;
+    font-weight: bold;
+}
+
+body.dark-mode .status-concluido {
+    background: #2e4d36 !important;
+    color: #baffc9 !important;
+    font-weight: bold;
+    border: 1px solid #7ee787;
+}
