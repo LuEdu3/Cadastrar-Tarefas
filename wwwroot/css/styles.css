@@ -429,3 +429,10 @@ body.dark-mode .status-concluido {
     font-weight: bold;
     border: 1px solid #7ee787;
 }
+
+body.dark-mode .status-andamento {
+    background: #4d4d2e !important;
+    color: #fff8b0 !important;
+    font-weight: bold;
+    border: 1px solid #fff8b0;
+}
