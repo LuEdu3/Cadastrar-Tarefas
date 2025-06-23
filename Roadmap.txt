@@ -1,0 +1,12 @@
+Mostrar horario que foi concluido a tarefa
+
+Talvez reduzir os campos que preenche
+
+mudar a ordem que é adicionada a lista de tarefas cadastradas
+
+aumentar tamanho do botao cadastrar
+
+mudar fundo do site para um azul que ande tipo mar
+
+sombra nas tabelas
+

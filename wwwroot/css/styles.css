@@ -1,0 +1,438 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    /* Gradiente azul escuro ainda mais profundo */
+    background: radial-gradient(ellipse at 60% 40%, #22335a 0%, #101a3a 60%, #05081a 100%);
+    /* Efeito de "diamante" com overlay de brilho */
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    /* Brilhos em azul ainda mais escuro, simulando "diamantes" */
+    background:
+        radial-gradient(circle at 20% 30%, rgba(120, 150, 255, 0.08) 0%, rgba(0, 0, 0, 0) 60%),
+        radial-gradient(circle at 80% 70%, rgba(60, 90, 180, 0.10) 0%, rgba(0, 0, 0, 0) 60%),
+        radial-gradient(circle at 60% 20%, rgba(0, 60, 120, 0.08) 0%, rgba(0, 0, 0, 0) 60%),
+        radial-gradient(circle at 40% 80%, rgba(30, 60, 120, 0.08) 0%, rgba(0, 0, 0, 0) 60%);
+    opacity: 0.6;
+    filter: blur(2.5px);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh 2vw;
+    gap: 2vw;
+}
+
+.retangulo-form,
+.retangulo-tarefas {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    width: 45vw;
+    min-width: 320px;
+    max-width: 600px;
+    height: 80vh;
+    padding: 32px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.retangulo-form h2,
+.retangulo-tarefas h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+}
+
+.retangulo-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+}
+
+.retangulo-form input,
+.retangulo-form textarea,
+.retangulo-form select {
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.retangulo-form button {
+    margin-top: 10px;
+    padding: 10px 10px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.retangulo-form button:hover {
+    background: #125ea8;
+}
+
+.log-interno {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.log-interno h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.log-interno #log {
+    font-size: 0.8rem;
+    color: #555;
+    font-family: 'Inter', monospace;
+}
+
+/* Estilos para o retângulo de tarefas */
+#listaTarefas {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tarefa-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.tarefa-item:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tarefa-nome {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.tarefa-descricao {
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.tarefa-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tarefa-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-concluido {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-andamento {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.tarefa-data {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.tarefa-tempo {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 2vh 2vw;
+        gap: 2vh;
+    }
+
+    .retangulo-form,
+    .retangulo-tarefas {
+        width: 90vw;
+        height: 45vh;
+    }
+}
+
+/* Estilos para os botões de ação das tarefas */
+.tarefa-acoes {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-concluir {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-concluir:hover {
+    background: #218838;
+}
+
+.tarefa-concluida {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/***** MENU LATERAL *****/
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: #181f2f;
+    color: #fff;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.18);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+    z-index: 1001;
+    padding: 32px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.side-menu.open {
+    transform: translateX(0);
+}
+
+.open-menu {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 1100;
+    background: #181f2f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 2rem;
+    padding: 6px 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: background 0.2s;
+}
+
+.open-menu:hover {
+    background: #232b45;
+}
+
+.open-menu.hide {
+    display: none !important;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    cursor: pointer;
+}
+
+.config-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/***** SWITCH (toggle) *****/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #555;
+    border-radius: 24px;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.switch input:checked+.slider {
+    background: #1976d2;
+}
+
+.switch input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+/***** MODO NOTURNO *****/
+body.dark-mode,
+body.dark-mode html {
+    background: radial-gradient(ellipse at 60% 40%, #10131e 0%, #070a13 60%, #01020a 100%) !important;
+}
+
+body.dark-mode .retangulo-form,
+body.dark-mode .retangulo-tarefas {
+    background: #181f2f;
+    color: #e0e6f0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.22);
+}
+
+body.dark-mode h2,
+body.dark-mode label,
+body.dark-mode .tarefa-nome {
+    color: #e0e6f0;
+}
+
+body.dark-mode .retangulo-form input,
+body.dark-mode .retangulo-form textarea,
+body.dark-mode .retangulo-form select {
+    background: #232b45;
+    color: #e0e6f0;
+    border: 1px solid #2c3550;
+}
+
+body.dark-mode .retangulo-form button {
+    background: #232b45;
+    color: #fff;
+}
+
+body.dark-mode .retangulo-form button:hover {
+    background: #1976d2;
+}
+
+body.dark-mode .tarefa-item {
+    background: #232b45;
+    border: 1px solid #2c3550;
+    color: #e0e6f0;
+}
+
+body.dark-mode .log-interno {
+    background: #232b45;
+    border: 1px solid #2c3550;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-concluir {
+    background: #1976d2;
+}
+
+body.dark-mode .btn-concluir:hover {
+    background: #125ea8;
+}
+
+body.dark-mode .tarefa-nome,
+body.dark-mode .tarefa-descricao,
+body.dark-mode .tarefa-info,
+body.dark-mode .tarefa-status,
+body.dark-mode .tarefa-data,
+body.dark-mode .tarefa-tempo {
+    color: #e0e6f0 !important;
+}
+
+body.dark-mode .tarefa-opiniao {
+    color: #b0c4ff !important;
+    /*b0c4ff cor para deixar azul*/
+}
+
+body.dark-mode .tarefa-concluida {
+    color: #baffc9 !important;
+    font-weight: bold;
+}
+
+body.dark-mode .status-concluido {
+    background: #2e4d36 !important;
+    color: #baffc9 !important;
+    font-weight: bold;
+    border: 1px solid #7ee787;
+}
+
+body.dark-mode .status-andamento {
+    background: #4d4d2e !important;
+    color: #fff8b0 !important;
+    font-weight: bold;
+    border: 1px solid #fff8b0;
+}
