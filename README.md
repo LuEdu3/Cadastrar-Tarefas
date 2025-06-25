@@ -21,9 +21,13 @@ O **Cadastrar-Tarefas** é uma aplicação web para gerenciar tarefas, permitind
 ## Funcionalidades
 - Cadastro de tarefas com nome, descrição, status, data, tempo e opinião
 - Listagem de tarefas cadastradas
+- Edição de tarefas existentes (com validação de alterações)
+- Exclusão de tarefas
 - Marcação de tarefas como concluídas
 - Modo noturno
 - Menu lateral de configurações
+- Sistema de logs para todas as ações
+- Atualização dinâmica em tempo real
 - Responsivo para dispositivos móveis
 
 ## Tecnologias Utilizadas
