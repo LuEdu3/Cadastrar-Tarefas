@@ -196,21 +196,6 @@ body::before {
     font-style: italic;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        padding: 2vh 2vw;
-        gap: 2vh;
-    }
-
-    .retangulo-form,
-    .retangulo-tarefas {
-        width: 90vw;
-        height: 45vh;
-    }
-}
-
 /* Estilos para os botões de ação das tarefas */
 .tarefa-acoes {
     margin-top: 12px;
@@ -328,17 +313,11 @@ body::before {
     background: #125ea8;
 }
 
-/* Botão desabilitado no modal */
 .modal-content button:disabled {
     background: #ccc !important;
     color: #666 !important;
     cursor: not-allowed !important;
     opacity: 0.6;
-}
-
-body.dark-mode .modal-content button:disabled {
-    background: #555 !important;
-    color: #999 !important;
 }
 
 .modal-content button[type="button"] {
@@ -359,7 +338,7 @@ body.dark-mode .modal-content button:disabled {
 }
 
 .modal-close:hover {
-    color: #fff;
+    color: #333;
 }
 
 /***** MENU LATERAL *****/
@@ -470,6 +449,215 @@ body.dark-mode .modal-content button:disabled {
     transform: translateX(20px);
 }
 
+/***** FUNCIONALIDADE MOBILE *****/
+/* Ocultar opção mobile em telas grandes */
+.mobile-only {
+    display: none;
+}
+
+/* Layout mobile - apenas dispositivos móveis */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 2vh 2vw;
+        gap: 2vh;
+    }
+
+    .retangulo-form,
+    .retangulo-tarefas {
+        width: 90vw;
+        height: 45vh;
+    }
+
+    /* Melhorar usabilidade em telas pequenas */
+    .tarefa-acoes {
+        justify-content: center;
+    }
+    
+    .btn-concluir,
+    .btn-editar,
+    .btn-excluir {
+        min-width: 60px;
+        padding: 8px 10px;
+    }
+
+    /* Mostrar opção mobile */
+    .mobile-only {
+        display: flex !important;
+    }
+    
+    /* Por padrão em mobile, mostrar apenas o formulário */
+    body.mobile-device .container {
+        flex-direction: column;
+        padding: 60px 16px 16px 16px;
+        gap: 16px;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    body.mobile-device .retangulo-form,
+    body.mobile-device .retangulo-tarefas {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        height: auto;
+        min-height: 400px;
+        padding: 20px 16px;
+    }
+    
+    /* Por padrão, ocultar lista de tarefas em mobile */
+    body.mobile-device .retangulo-tarefas {
+        display: none;
+    }
+    
+    /* Quando ativada a opção, mostrar tarefas e ocultar formulário */
+    body.mobile-device.mobile-show-tasks .retangulo-form {
+        display: none;
+    }
+    
+    body.mobile-device.mobile-show-tasks .retangulo-tarefas {
+        display: flex;
+    }
+    
+    /* Ajustes específicos para formulário mobile */
+    body.mobile-device .retangulo-form input,
+    body.mobile-device .retangulo-form textarea,
+    body.mobile-device .retangulo-form select {
+        padding: 12px;
+        font-size: 16px; /* Evita zoom no iOS */
+        border-radius: 8px;
+    }
+    
+    body.mobile-device .retangulo-form button {
+        padding: 14px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        width: 100%;
+    }
+    
+    /* Tarefas mobile - layout em cards compactos */
+    body.mobile-device .tarefa-item {
+        padding: 12px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
+    
+    body.mobile-device .tarefa-nome {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+    
+    body.mobile-device .tarefa-descricao {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        line-height: 1.3;
+    }
+    
+    body.mobile-device .tarefa-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: 8px;
+    }
+    
+    body.mobile-device .tarefa-acoes {
+        margin-top: 8px;
+        justify-content: flex-start;
+        gap: 6px;
+    }
+    
+    body.mobile-device .btn-concluir,
+    body.mobile-device .btn-editar,
+    body.mobile-device .btn-excluir {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        min-width: 70px;
+        text-align: center;
+    }
+    
+    /* Log mobile */
+    body.mobile-device .log-interno {
+        max-height: 120px;
+        padding: 12px;
+        margin-top: 16px;
+    }
+    
+    body.mobile-device .log-interno #log {
+        font-size: 0.75rem;
+    }
+    
+    /* Modal mobile */
+    body.mobile-device .modal-content {
+        width: 95%;
+        max-width: 400px;
+        margin: 10% auto;
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    body.mobile-device .modal-content input,
+    body.mobile-device .modal-content textarea,
+    body.mobile-device .modal-content select {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    body.mobile-device .modal-content button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    /* Menu lateral mobile */
+    body.mobile-device .side-menu {
+        width: 280px;
+        padding: 40px 24px 24px 24px;
+    }
+    
+    body.mobile-device .open-menu {
+        top: 16px;
+        left: 16px;
+        padding: 8px 12px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Indicadores visuais para mobile */
+body.mobile-device .retangulo-form::before {
+    content: "📱 Cadastrar Tarefa";
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    background: #1976d2;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+body.mobile-device.mobile-show-tasks .retangulo-tarefas::before {
+    content: "📱 Tarefas Cadastradas";
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    background: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+body.mobile-device .retangulo-form,
+body.mobile-device .retangulo-tarefas {
+    position: relative;
+}
+
 /***** MODO NOTURNO *****/
 body.dark-mode,
 body.dark-mode html {
@@ -555,6 +743,11 @@ body.dark-mode .modal-content select {
     border: 1px solid #2c3550;
 }
 
+body.dark-mode .modal-content button:disabled {
+    background: #555 !important;
+    color: #999 !important;
+}
+
 body.dark-mode .modal-close:hover {
     color: #fff;
 }
@@ -570,7 +763,6 @@ body.dark-mode .tarefa-tempo {
 
 body.dark-mode .tarefa-opiniao {
     color: #b0c4ff !important;
-    /*b0c4ff cor para deixar azul*/
 }
 
 body.dark-mode .tarefa-concluida {
@@ -590,4 +782,15 @@ body.dark-mode .status-andamento {
     color: #fff8b0 !important;
     font-weight: bold;
     border: 1px solid #fff8b0;
+}
+
+/* Modo escuro para mobile */
+body.dark-mode.mobile-device .retangulo-form::before {
+    background: #232b45;
+    color: #e0e6f0;
+}
+
+body.dark-mode.mobile-device.mobile-show-tasks .retangulo-tarefas::before {
+    background: #1976d2;
+    color: #e0e6f0;
 }

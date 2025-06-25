@@ -57,9 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Tornar a função global para ser acessível
-    window.carregarTarefas = carregarTarefas;
-
-    // Função para exibir as tarefas na tela
+    window.carregarTarefas = carregarTarefas;    // Função para exibir as tarefas na tela
     function exibirTarefas(tarefas) {
         const listaTarefas = document.getElementById('listaTarefas');
 
@@ -67,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
             listaTarefas.innerHTML = '<div style="text-align: center; color: #666; margin-top: 20px;">Nenhuma tarefa cadastrada</div>';
             return;
         }
-        // Exibir as tarefas mais novas primeiro
+
+        // Exibição em cards (única opção)
         listaTarefas.innerHTML = tarefas.reverse().map(tarefa => `
             <div class="tarefa-item">
                 <div class="tarefa-nome">${tarefa.nomeTarefa}</div>
@@ -82,15 +81,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 ${tarefa.opniaoTarefaRealizada ? `<div class="tarefa-opiniao" style="margin-top: 8px; font-style: italic;">Opinião: ${tarefa.opniaoTarefaRealizada}</div>` : ''}
                 <div class="tarefa-acoes">
                     ${tarefa.statusTarefa === 'Em Andamento' ?
-                `<button class="btn-concluir" onclick="marcarComoConcluida(${tarefa.id})">✓ Marcar como Concluída</button>` :
-                `<span class="tarefa-concluida">✓ Concluída</span>`
-            }
+                        `<button class="btn-concluir" onclick="marcarComoConcluida(${tarefa.id})">✓ Marcar como Concluída</button>` :
+                        `<span class="tarefa-concluida">✓ Concluída</span>`
+                    }
                     <button class="btn-editar" onclick="editarTarefa(${tarefa.id})">✏️ Editar</button>
                     <button class="btn-excluir" onclick="excluirTarefa(${tarefa.id})">🗑️ Excluir</button>
                 </div>
             </div>
         `).join('');
-    }    // Carrega as tarefas quando a página é carregada
+    }// Carrega as tarefas quando a página é carregada
     carregarTarefas();
 });
 
