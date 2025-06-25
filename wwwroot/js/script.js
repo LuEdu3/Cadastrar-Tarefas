@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
-        
+
         const formData = new FormData(this);
         const tarefa = {
             nomeTarefa: formData.get('nomeTarefa'),
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const log = document.getElementById('log');
-            
+
             if (response.ok) {
                 const novaTarefa = await response.json();
                 log.innerHTML += `<div style="color: green;">✓ Tarefa "${tarefa.nomeTarefa}" cadastrada com sucesso!</div>`;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function carregarTarefas() {
         try {
             const response = await fetch('/api/tarefas');
-            
+
             if (response.ok) {
                 const tarefas = await response.json();
                 exibirTarefas(tarefas);
@@ -55,14 +55,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Erro de conexão ao carregar tarefas:', error);
         }
     }
-    
+
     // Tornar a função global para ser acessível
     window.carregarTarefas = carregarTarefas;
 
     // Função para exibir as tarefas na tela
     function exibirTarefas(tarefas) {
         const listaTarefas = document.getElementById('listaTarefas');
-        
+
         if (tarefas.length === 0) {
             listaTarefas.innerHTML = '<div style="text-align: center; color: #666; margin-top: 20px;">Nenhuma tarefa cadastrada</div>';
             return;
@@ -81,10 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 ${tarefa.tempoParaFazerTarefa ? `<div class="tarefa-tempo">Tempo: ${tarefa.tempoParaFazerTarefa}</div>` : ''}
                 ${tarefa.opniaoTarefaRealizada ? `<div class="tarefa-opiniao" style="margin-top: 8px; font-style: italic;">Opinião: ${tarefa.opniaoTarefaRealizada}</div>` : ''}
                 <div class="tarefa-acoes">
-                    ${tarefa.statusTarefa === 'Em Andamento' ? 
-                        `<button class="btn-concluir" onclick="marcarComoConcluida(${tarefa.id})">✓ Marcar como Concluída</button>` : 
-                        `<span class="tarefa-concluida">✓ Concluída</span>`
-                    }
+                    ${tarefa.statusTarefa === 'Em Andamento' ?
+                `<button class="btn-concluir" onclick="marcarComoConcluida(${tarefa.id})">✓ Marcar como Concluída</button>` :
+                `<span class="tarefa-concluida">✓ Concluída</span>`
+            }
                     <button class="btn-editar" onclick="editarTarefa(${tarefa.id})">✏️ Editar</button>
                     <button class="btn-excluir" onclick="excluirTarefa(${tarefa.id})">🗑️ Excluir</button>
                 </div>
@@ -102,12 +102,12 @@ async function marcarComoConcluida(tarefaId) {
         if (!responseGet.ok) {
             throw new Error('Erro ao buscar tarefa');
         }
-        
+
         const tarefa = await responseGet.json();
-        
+
         // Atualiza o status para "Concluido"
         tarefa.statusTarefa = 'Concluido';
-        
+
         // Envia a atualização
         const responsePut = await fetch(`/api/tarefas/${tarefaId}`, {
             method: 'PUT',
@@ -115,12 +115,12 @@ async function marcarComoConcluida(tarefaId) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(tarefa)
-        });            if (responsePut.ok) {
-                const log = document.getElementById('log');
-                log.innerHTML += `<div style="color: green;">✓ Tarefa "${tarefa.nomeTarefa}" marcada como concluída!</div>`;
-                
-                // Recarrega a lista de tarefas de forma mais eficiente
-                window.carregarTarefas();
+        }); if (responsePut.ok) {
+            const log = document.getElementById('log');
+            log.innerHTML += `<div style="color: green;">✓ Tarefa "${tarefa.nomeTarefa}" marcada como concluída!</div>`;
+
+            // Recarrega a lista de tarefas de forma mais eficiente
+            window.carregarTarefas();
         } else {
             const log = document.getElementById('log');
             log.innerHTML += `<div style="color: red;">✗ Erro ao marcar tarefa como concluída: ${responsePut.status}</div>`;
@@ -137,7 +137,7 @@ async function editarTarefa(tarefaId) {
         const response = await fetch(`/api/tarefas/${tarefaId}`);
         if (response.ok) {
             const tarefa = await response.json();
-            
+
             // Cria modal de edição
             const modal = document.createElement('div');
             modal.className = 'modal';
@@ -172,10 +172,10 @@ async function editarTarefa(tarefaId) {
                     </form>
                 </div>
             `;
-            
+
             document.body.appendChild(modal);
             modal.style.display = 'block';
-            
+
             // Armazena valores originais para comparação
             const valoresOriginais = {
                 nome: tarefa.nomeTarefa,
@@ -185,7 +185,7 @@ async function editarTarefa(tarefaId) {
                 tempo: tarefa.tempoParaFazerTarefa || '',
                 opiniao: tarefa.opniaoTarefaRealizada || ''
             };
-            
+
             // Função para verificar mudanças
             function verificarMudancas() {
                 const valoresAtuais = {
@@ -196,24 +196,24 @@ async function editarTarefa(tarefaId) {
                     tempo: document.getElementById('editTempo').value,
                     opiniao: document.getElementById('editOpiniao').value
                 };
-                
-                const houveMudanca = Object.keys(valoresOriginais).some(key => 
+
+                const houveMudanca = Object.keys(valoresOriginais).some(key =>
                     valoresOriginais[key] !== valoresAtuais[key]
                 );
-                
+
                 document.getElementById('salvarBtn').disabled = !houveMudanca;
             }
-            
+
             // Adiciona eventos de mudança nos campos
             ['editNome', 'editDescricao', 'editStatus', 'editData', 'editTempo', 'editOpiniao'].forEach(id => {
                 document.getElementById(id).addEventListener('input', verificarMudancas);
                 document.getElementById(id).addEventListener('change', verificarMudancas);
             });
-            
+
             // Adiciona evento de submit
             document.getElementById('editForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
+
                 const tarefaAtualizada = {
                     id: tarefaId,
                     nomeTarefa: document.getElementById('editNome').value,
@@ -223,13 +223,13 @@ async function editarTarefa(tarefaId) {
                     tempoParaFazerTarefa: document.getElementById('editTempo').value,
                     opniaoTarefaRealizada: document.getElementById('editOpiniao').value
                 };
-                
+
                 const updateResponse = await fetch(`/api/tarefas/${tarefaId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(tarefaAtualizada)
                 });
-                
+
                 const log = document.getElementById('log');
                 if (updateResponse.ok) {
                     log.innerHTML += `<div style="color: blue;">✏️ Tarefa "${tarefaAtualizada.nomeTarefa}" editada com sucesso!</div>`;
@@ -251,12 +251,12 @@ async function excluirTarefa(tarefaId) {
     if (!confirm('Tem certeza que deseja excluir esta tarefa?')) {
         return;
     }
-    
+
     try {
         const response = await fetch(`/api/tarefas/${tarefaId}`, {
             method: 'DELETE'
         });
-        
+
         const log = document.getElementById('log');
         if (response.ok) {
             log.innerHTML += `<div style="color: orange;">🗑️ Tarefa excluída com sucesso!</div>`;
