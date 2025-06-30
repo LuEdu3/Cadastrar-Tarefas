@@ -1,3 +1,19 @@
+@media (max-width: 600px) {
+  .container {
+    padding: 0;
+  }
+  .retangulo-form,
+  .retangulo-tarefas {
+    min-height: 85vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
 body,
 html {
     height: 100%;
