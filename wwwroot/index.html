@@ -23,11 +23,11 @@
             <span>Modo Noturno</span>
         </div>
         <div class="config-item">
-            <label class="switch">
+            <label class="switch" id="switchTabelaContainer" style="display: none;">
                 <input type="checkbox" id="switchTabelaTarefas">
                 <span class="slider"></span>
             </label>
-            <span id="labelSwitchTabela" style="margin-left: 8px;">Ver Tarefas Cadastradas</span>
+            <span id="labelSwitchTabela" style="margin-left: 8px; display: none;">Ver Tarefas Cadastradas</span>
         </div>
     </div>
     <button id="openMenuBtn" class="open-menu">&#9776;</button>
@@ -125,7 +125,10 @@
         const retanguloTarefas = document.getElementById('retanguloTarefas');
 
         function ajustarVisibilidadeMobile() {
+            const switchTabelaContainer = document.getElementById('switchTabelaContainer');
             if (window.innerWidth <= 600) {
+                switchTabelaContainer.style.display = 'inline-block';
+                labelSwitchTabela.style.display = 'inline-block';
                 if (switchTabelaTarefas.checked) {
                     retanguloForm.style.display = 'none';
                     retanguloTarefas.style.display = 'block';
@@ -135,14 +138,12 @@
                     retanguloTarefas.style.display = 'none';
                     labelSwitchTabela.textContent = 'Ver Tarefas Cadastradas';
                 }
-                switchTabelaTarefas.style.display = 'inline-block';
-                labelSwitchTabela.style.display = 'inline-block';
             } else {
+                switchTabelaContainer.style.display = 'none';
+                labelSwitchTabela.style.display = 'none';
                 retanguloForm.style.display = 'block';
                 retanguloTarefas.style.display = 'block';
                 switchTabelaTarefas.checked = false;
-                switchTabelaTarefas.style.display = 'none';
-                labelSwitchTabela.style.display = 'none';
             }
         }
 
