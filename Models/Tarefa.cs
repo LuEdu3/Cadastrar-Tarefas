@@ -9,7 +9,5 @@ namespace Cadastrar_Tarefas.Models
         public string? DescricaoTarefa { get; set; }
         public string? StatusTarefa { get; set; }
         public DateTime DataTarefa { get; set; }
-        public string? TempoParaFazerTarefa { get; set; }
-        public string? OpniaoTarefaRealizada { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace Cadastrar_Tarefas.Data
         {
             modelBuilder.Entity<Tarefa>().ToTable("table1");
             modelBuilder.Entity<Tarefa>().Property(t => t.StatusTarefa).HasColumnType("enum('Concluido','Em Andamento')");
-            modelBuilder.Entity<Tarefa>().Property(t => t.OpniaoTarefaRealizada).HasColumnName("opniãoTarefaRealizada");
         }
     }
 }
