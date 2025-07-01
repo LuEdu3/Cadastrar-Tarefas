@@ -22,10 +22,17 @@
             </label>
             <span>Modo Noturno</span>
         </div>
+        <div class="config-item">
+            <label class="switch">
+                <input type="checkbox" id="switchTabelaTarefas">
+                <span class="slider"></span>
+            </label>
+            <span id="labelSwitchTabela" style="margin-left: 8px;">Ver Tarefas Cadastradas</span>
+        </div>
     </div>
     <button id="openMenuBtn" class="open-menu">&#9776;</button>
     <div class="container">
-        <div class="retangulo-form">
+        <div class="retangulo-form" id="retanguloForm">
             <h2>Cadastrar Tarefa</h2>
             <form id="tarefaForm">
                 <label for="nomeTarefa">Nome:</label>
@@ -52,8 +59,10 @@
             </div>
         </div>
 
-        <div class="retangulo-tarefas">
-            <h2>Tarefas Cadastradas</h2>
+        <div class="retangulo-tarefas" id="retanguloTarefas" style="display: none;">
+            <div class="tabela-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="margin: 0 0 10px 0;">Tarefas Cadastradas</h2>
+            </div>
             <div id="listaTarefas">
                 <!-- As tarefas serão exibidas aqui -->
             </div>
@@ -108,6 +117,38 @@
                 dataInput.value = localDatetime;
             }
         });
+
+        // Alternar entre cadastro e tabela de tarefas no mobile (switch no sideMenu)
+        const switchTabelaTarefas = document.getElementById('switchTabelaTarefas');
+        const labelSwitchTabela = document.getElementById('labelSwitchTabela');
+        const retanguloForm = document.getElementById('retanguloForm');
+        const retanguloTarefas = document.getElementById('retanguloTarefas');
+
+        function ajustarVisibilidadeMobile() {
+            if (window.innerWidth <= 600) {
+                if (switchTabelaTarefas.checked) {
+                    retanguloForm.style.display = 'none';
+                    retanguloTarefas.style.display = 'block';
+                    labelSwitchTabela.textContent = 'Voltar para Cadastro';
+                } else {
+                    retanguloForm.style.display = 'block';
+                    retanguloTarefas.style.display = 'none';
+                    labelSwitchTabela.textContent = 'Ver Tarefas Cadastradas';
+                }
+                switchTabelaTarefas.style.display = 'inline-block';
+                labelSwitchTabela.style.display = 'inline-block';
+            } else {
+                retanguloForm.style.display = 'block';
+                retanguloTarefas.style.display = 'block';
+                switchTabelaTarefas.checked = false;
+                switchTabelaTarefas.style.display = 'none';
+                labelSwitchTabela.style.display = 'none';
+            }
+        }
+
+        switchTabelaTarefas.addEventListener('change', ajustarVisibilidadeMobile);
+        window.addEventListener('resize', ajustarVisibilidadeMobile);
+        ajustarVisibilidadeMobile();
     </script>
 </body>
 
