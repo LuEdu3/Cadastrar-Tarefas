@@ -10,9 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
             nomeTarefa: formData.get('nomeTarefa'),
             descricaoTarefa: formData.get('descricaoTarefa'),
             statusTarefa: formData.get('statusTarefa'),
-            dataTarefa: formData.get('dataTarefa'),
-            tempoParaFazerTarefa: formData.get('tempoParaFazerTarefa'),
-            opniaoTarefaRealizada: formData.get('opniaoTarefaRealizada')
+            dataTarefa: formData.get('dataTarefa')
         };
 
         try {
@@ -78,8 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     </span>
                     <span class="tarefa-data">${new Date(tarefa.dataTarefa).toLocaleString('pt-BR')}</span>
                 </div>
-                ${tarefa.tempoParaFazerTarefa ? `<div class="tarefa-tempo">Tempo: ${tarefa.tempoParaFazerTarefa}</div>` : ''}
-                ${tarefa.opniaoTarefaRealizada ? `<div class="tarefa-opiniao" style="margin-top: 8px; font-style: italic;">Opinião: ${tarefa.opniaoTarefaRealizada}</div>` : ''}
                 <div class="tarefa-acoes">
                     ${tarefa.statusTarefa === 'Em Andamento' ?
                 `<button class="btn-concluir" onclick="marcarComoConcluida(${tarefa.id})">✓ Marcar como Concluída</button>` :
@@ -161,12 +157,6 @@ async function editarTarefa(tarefaId) {
                         <label for="editData">Data:</label>
                         <input type="datetime-local" id="editData" value="${tarefa.dataTarefa.slice(0, 16)}" required>
                         
-                        <label for="editTempo">Tempo para fazer:</label>
-                        <input type="text" id="editTempo" value="${tarefa.tempoParaFazerTarefa || ''}">
-                        
-                        <label for="editOpiniao">Opinião:</label>
-                        <textarea id="editOpiniao">${tarefa.opniaoTarefaRealizada || ''}</textarea>
-                        
                         <button type="submit" id="salvarBtn" disabled>Salvar Alterações</button>
                         <button type="button" onclick="this.closest('.modal').remove()">Cancelar</button>
                     </form>
@@ -181,9 +171,7 @@ async function editarTarefa(tarefaId) {
                 nome: tarefa.nomeTarefa,
                 descricao: tarefa.descricaoTarefa || '',
                 status: tarefa.statusTarefa,
-                data: tarefa.dataTarefa.slice(0, 16),
-                tempo: tarefa.tempoParaFazerTarefa || '',
-                opiniao: tarefa.opniaoTarefaRealizada || ''
+                data: tarefa.dataTarefa.slice(0, 16)
             };
 
             // Função para verificar mudanças
@@ -192,9 +180,7 @@ async function editarTarefa(tarefaId) {
                     nome: document.getElementById('editNome').value,
                     descricao: document.getElementById('editDescricao').value,
                     status: document.getElementById('editStatus').value,
-                    data: document.getElementById('editData').value,
-                    tempo: document.getElementById('editTempo').value,
-                    opiniao: document.getElementById('editOpiniao').value
+                    data: document.getElementById('editData').value
                 };
 
                 const houveMudanca = Object.keys(valoresOriginais).some(key =>
@@ -209,6 +195,11 @@ async function editarTarefa(tarefaId) {
                 document.getElementById(id).addEventListener('input', verificarMudancas);
                 document.getElementById(id).addEventListener('change', verificarMudancas);
             });
+            // Ajuste: apenas campos existentes
+            ['editNome', 'editDescricao', 'editStatus', 'editData'].forEach(id => {
+                document.getElementById(id).addEventListener('input', verificarMudancas);
+                document.getElementById(id).addEventListener('change', verificarMudancas);
+            });
 
             // Adiciona evento de submit
             document.getElementById('editForm').addEventListener('submit', async (e) => {
@@ -219,9 +210,7 @@ async function editarTarefa(tarefaId) {
                     nomeTarefa: document.getElementById('editNome').value,
                     descricaoTarefa: document.getElementById('editDescricao').value,
                     statusTarefa: document.getElementById('editStatus').value,
-                    dataTarefa: document.getElementById('editData').value,
-                    tempoParaFazerTarefa: document.getElementById('editTempo').value,
-                    opniaoTarefaRealizada: document.getElementById('editOpiniao').value
+                    dataTarefa: document.getElementById('editData').value
                 };
 
                 const updateResponse = await fetch(`/api/tarefas/${tarefaId}`, {
