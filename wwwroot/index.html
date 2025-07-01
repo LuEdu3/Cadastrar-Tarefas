@@ -22,10 +22,17 @@
             </label>
             <span>Modo Noturno</span>
         </div>
+        <div class="config-item">
+            <label class="switch" id="switchTabelaContainer" style="display: none;">
+                <input type="checkbox" id="switchTabelaTarefas">
+                <span class="slider"></span>
+            </label>
+            <span id="labelSwitchTabela" style="margin-left: 8px; display: none;">Ver Tarefas Cadastradas</span>
+        </div>
     </div>
     <button id="openMenuBtn" class="open-menu">&#9776;</button>
     <div class="container">
-        <div class="retangulo-form">
+        <div class="retangulo-form" id="retanguloForm">
             <h2>Cadastrar Tarefa</h2>
             <form id="tarefaForm">
                 <label for="nomeTarefa">Nome:</label>
@@ -38,7 +45,7 @@
                     <option value="Concluido">Concluído</option>
                 </select>
                 <label for="dataTarefa">Data:</label>
-                <input type="datetime-local" id="dataTarefa" name="dataTarefa" required>
+                <input type="datetime-local" id="dataTarefa" name="dataTarefa">
                 <label for="tempoParaFazerTarefa">Tempo para fazer:</label>
                 <input type="text" id="tempoParaFazerTarefa" name="tempoParaFazerTarefa">
                 <label for="opniaoTarefaRealizada">Opinião:</label>
@@ -52,8 +59,10 @@
             </div>
         </div>
 
-        <div class="retangulo-tarefas">
-            <h2>Tarefas Cadastradas</h2>
+        <div class="retangulo-tarefas" id="retanguloTarefas" style="display: none;">
+            <div class="tabela-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="margin: 0 0 10px 0;">Tarefas Cadastradas</h2>
+            </div>
             <div id="listaTarefas">
                 <!-- As tarefas serão exibidas aqui -->
             </div>
@@ -96,6 +105,51 @@
             document.body.classList.toggle('dark-mode', this.checked);
             localStorage.setItem('darkMode', this.checked);
         });
+
+        // Preencher data/hora automaticamente se vazio ao cadastrar tarefa
+        const tarefaForm = document.getElementById('tarefaForm');
+        tarefaForm.addEventListener('submit', function (e) {
+            const dataInput = document.getElementById('dataTarefa');
+            if (!dataInput.value) {
+                const now = new Date();
+                const pad = n => n.toString().padStart(2, '0');
+                const localDatetime = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate()) + 'T' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+                dataInput.value = localDatetime;
+            }
+        });
+
+        // Alternar entre cadastro e tabela de tarefas no mobile (switch no sideMenu)
+        const switchTabelaTarefas = document.getElementById('switchTabelaTarefas');
+        const labelSwitchTabela = document.getElementById('labelSwitchTabela');
+        const retanguloForm = document.getElementById('retanguloForm');
+        const retanguloTarefas = document.getElementById('retanguloTarefas');
+
+        function ajustarVisibilidadeMobile() {
+            const switchTabelaContainer = document.getElementById('switchTabelaContainer');
+            if (window.innerWidth <= 600) {
+                switchTabelaContainer.style.display = 'inline-block';
+                labelSwitchTabela.style.display = 'inline-block';
+                if (switchTabelaTarefas.checked) {
+                    retanguloForm.style.display = 'none';
+                    retanguloTarefas.style.display = 'block';
+                    labelSwitchTabela.textContent = 'Voltar para Cadastro';
+                } else {
+                    retanguloForm.style.display = 'block';
+                    retanguloTarefas.style.display = 'none';
+                    labelSwitchTabela.textContent = 'Ver Tarefas Cadastradas';
+                }
+            } else {
+                switchTabelaContainer.style.display = 'none';
+                labelSwitchTabela.style.display = 'none';
+                retanguloForm.style.display = 'block';
+                retanguloTarefas.style.display = 'block';
+                switchTabelaTarefas.checked = false;
+            }
+        }
+
+        switchTabelaTarefas.addEventListener('change', ajustarVisibilidadeMobile);
+        window.addEventListener('resize', ajustarVisibilidadeMobile);
+        ajustarVisibilidadeMobile();
     </script>
 </body>
 
