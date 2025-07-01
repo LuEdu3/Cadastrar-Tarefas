@@ -21,21 +21,21 @@ O **Cadastrar-Tarefas** é uma aplicação web para gerenciar tarefas, permitind
 ## Funcionalidades
 - Cadastro de tarefas com nome, descrição, status, data, tempo e opinião
 - Listagem de tarefas cadastradas
-- Edição de tarefas existentes (com validação de alterações)
-- Exclusão de tarefas
+- Edição e exclusão de tarefas
 - Marcação de tarefas como concluídas
 - Modo noturno
 - Menu lateral de configurações
 - Sistema de logs para todas as ações
-- Atualização dinâmica em tempo real
-- Responsivo para dispositivos móveis
+- Interface responsiva para dispositivos móveis
+- Alternância entre cadastro e lista de tarefas no mobile via switch no menu lateral
+- Layout moderno, com formulário e tabela ocupando quase toda a tela no mobile
 
 ## Tecnologias Utilizadas
 - .NET 8 (backend)
 - ASP.NET Core Web API
 - Entity Framework Core + Pomelo MySQL
 - MySQL
-- HTML5, CSS3 (customizado), JavaScript
+- HTML5, CSS3 (customizado e responsivo), JavaScript
 
 ## Como Rodar Localmente
 1. **Clone o repositório:**
